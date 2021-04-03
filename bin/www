@@ -13,21 +13,17 @@ var https = require('https')
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3001');
+var port = normalizePort(3003);
 app.set('port', port);
-
+var host = '31.220.63.223';
 /**
  * Create HTTP server.
  */
 
-var server = https.createServer({
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.cert')
-}, app)
-.listen(3001, function () {
-  console.log('Warzone API listening on port 3000! Go to https://localhost:3000/')
+var server = require('http').Server(app);
+app.listen(port, host, () => {
+  console.log(`Server starting up - Running on ${host}:${port}`);
 })
-
 /**
  * Listen on provided port, on all network interfaces.
  */

@@ -7,7 +7,7 @@ var cors = require('cors');
 const API = require('call-of-duty-api')();
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var matchesRouter = require('./routes/matches');
 var statsRouter = require('./routes/stats');
 
 var app = express();
@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/matches', matchesRouter);
 app.use('/stats', statsRouter);
 
 // catch 404 and forward to error handler
