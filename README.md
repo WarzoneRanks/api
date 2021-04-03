@@ -1,1 +1,1 @@
-# api
+# Warzone Ranks API
