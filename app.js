@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 const API = require('call-of-duty-api')();
+require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 var matchesRouter = require('./routes/matches');
@@ -33,7 +34,7 @@ app.use(function(req, res, next) {
 });
 
 try {
-  API.login("parkermandfw@gmail.com", "Sj318908!");
+  API.login(process.env.ACTI_EMAIL, process.env.ACTI_PASS);
 } catch(Error) {
   console.log(Error);
 }
