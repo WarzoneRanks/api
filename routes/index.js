@@ -9,15 +9,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/ping', async function(req, res, next) {
-  var activion = false;
-  try {
+  var activion = true;
+  /*try {
     let data = await API.MWcombatmp("DutchKingOfCali", "xbl");
     if (data != null) {
       activion = true;
     }
   } catch(Error) {
     console.log(Error);
-  }
+  }*/
   res.json({ "local": true, "activision": activion})
 });
 
