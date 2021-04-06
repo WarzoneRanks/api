@@ -408,32 +408,39 @@ router.get('/:platform/:username/matches', async function(req, res, next) {
         var matches = [];
         let done = false;
         let countOfLoaded = 0;
+        let errorLoadingMatches = false;
         var loadMatches = new Promise((resolve, reject) => {
             data.matches.forEach(async function(match) {
                 matches[match.matchID] = {matchID: match.matchID};
                 await request(`https://wzapi.parkersmith.io/matches/match/${match.matchID}`, function (error, response) {
                     let result = JSON.parse(response.body);
-                    let newMatch = {
-                        matchID: match.matchID,
-                        mode: match.mode,
-                        utcStartSeconds: match.utcStartSeconds,
-                        playerStats: {
-                            teamPlacement: match.playerStats.teamPlacement,
-                            kills: match.playerStats.kills,
-                            damageDone: match.playerStats.damageDone,
-                            score: match.playerStats.score
-                        },
-                        ranking: {
-                            averageKD: result.data.ranking.averageKD,
-                            rank: result.data.ranking.rank,
-                            class: result.data.ranking.class,
-                            percentage: result.data.ranking.percentage
+                    if (result.error == true) {
+                        errorLoadingMatches = true;
+                        matches[match.matchID] = "error";
+ 
+                    } else {
+                        let newMatch = {
+                            matchID: match.matchID,
+                            mode: match.mode,
+                            utcStartSeconds: match.utcStartSeconds,
+                            playerStats: {
+                                teamPlacement: match.playerStats.teamPlacement,
+                                kills: match.playerStats.kills,
+                                damageDone: match.playerStats.damageDone,
+                                score: match.playerStats.score
+                            },
+                            ranking: {
+                                averageKD: result.data.ranking.averageKD,
+                                rank: result.data.ranking.rank,
+                                class: result.data.ranking.class,
+                                percentage: result.data.ranking.percentage
+                            }
+                        
                         }
-                       
+                        matches[match.matchID] = newMatch;
+                        countOfLoaded = countOfLoaded + 1;
                     }
-                    matches[match.matchID] = newMatch;
-                    countOfLoaded = countOfLoaded + 1;
-                    if (data.matches.length == countOfLoaded) {
+                    if (data.matches.length == countOfLoaded || errorLoadingMatches) {
                         resolve();
                     }
                     
@@ -447,7 +454,12 @@ router.get('/:platform/:username/matches', async function(req, res, next) {
             for (match in matches) {
                 newMatchArray.push(matches[match]);
             }
-            res.json({error: false, data: newMatchArray});
+            if (errorLoadingMatches) {
+                res.json({error: true, msg: "Tracker.gg's API is having some problems, please try again in a few minutes"});
+                return;
+            } else {
+                res.json({error: false, data: newMatchArray});
+            }
         });
         
         

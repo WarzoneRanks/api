@@ -21,7 +21,7 @@ function median(numbers) {
 router.get('/match/:matchID', async function(req, res, next) {
     var matchID = req.params.matchID;
     try {
-        let data = await API.MWFullMatchInfowz(matchID);
+       // let data = await API.MWFullMatchInfowz(matchID);
         var options = {
             'method': 'GET',
             'url': `https://api.tracker.gg/api/v2/warzone/standard/matches/${matchID}`,
@@ -36,16 +36,27 @@ router.get('/match/:matchID', async function(req, res, next) {
                 return true;
             }
             let result = JSON.parse(response.body);
-            let players = result.data.segments;
+            let players = null;
+            if (result.data == null) {
+                if (req.query.debug != null) {
+                    res.json({error: true, json: result});
+                } else {
+                    console.log("Couldn't get players");
+                    res.json({error: true, msg: "Tracker.gg API is experiencing some issues currently, please try again in a few minutes.."});
+                    return;
+                }
+            } else {
+                players = result.data.segments;
+            }
             let kds = [];
             players.forEach(async function(player) {
                 if (player.attributes.lifeTimeStats != null) {
                     kds.push(player.attributes.lifeTimeStats.kdRatio);
                 }
             });
-            //var total=0;
-            //for(var i in kds) { total += kds[i]; }
-            //let averageKD = (total / kds.length).toFixed(2);
+            var total=0;
+            for(var i in kds) { total += kds[i]; }
+            let averageKD_avg = (total / kds.length).toFixed(2);
             let averageKD = median(kds);
 
             switch(true) {
@@ -166,6 +177,7 @@ router.get('/match/:matchID', async function(req, res, next) {
                 allPlayers: [data.allPlayers[0]],
                 ranking: {
                     averageKD: averageKD,
+                    averageKD_avg: averageKD_avg,
                     rank: kdRank,
                     class: kdClass,
                     percentage: kdPercentage
