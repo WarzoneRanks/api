@@ -34,7 +34,7 @@ app.use(function(req, res, next) {
 });
 
 try {
-  API.login(process.env.ACTI_EMAIL3, process.env.ACTI_PASS);
+  API.login(process.env.ACTI_EMAIL2, process.env.ACTI_PASS);
 } catch(Error) {
   console.log(Error);
 }

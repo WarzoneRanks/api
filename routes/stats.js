@@ -2,6 +2,18 @@ var express = require('express');
 var router = express.Router();
 var request = require("request");
 const API = require('call-of-duty-api')();
+const mysql = require('mysql');
+require('dotenv').config();
+const connection = mysql.createConnection({
+    host: '31.220.50.95',
+    user: process.env.DBUSER,
+    password: process.env.DBPASS,
+    database: 'warzoneranks'
+});
+connection.connect((err) => {
+    if (err) throw err;
+    console.log('Connected!');
+});
 
 /* GET player stats. */
 router.get('/:platform/:username', async function(req, res, next) {
@@ -12,6 +24,11 @@ router.get('/:platform/:username', async function(req, res, next) {
             let data = await API.MWwz(username, 'xbl');
             res.json({error: false, data: data});
         } else {
+            if (username == "og-savagee gamer" && platform == "xbl") {
+                console.log("Banned");
+                res.json({error: true, msg: "You've been banned from Warzone Ranks"});
+                return true;
+            }
             let data = await API.MWwz(username, platform);
             let kd = data.lifetime.mode.br.properties.kdRatio.toFixed(2);
             let kdRank;
@@ -412,28 +429,55 @@ router.get('/:platform/:username/matches', async function(req, res, next) {
         var loadMatches = new Promise((resolve, reject) => {
             data.matches.forEach(async function(match) {
                 matches[match.matchID] = {matchID: match.matchID};
-                let newMatch = {
-                    matchID: match.matchID,
-                    mode: match.mode,
-                    utcStartSeconds: match.utcStartSeconds,
-                    playerStats: {
-                        teamPlacement: match.playerStats.teamPlacement,
-                        kills: match.playerStats.kills,
-                        damageDone: match.playerStats.damageDone,
-                        score: match.playerStats.score
-                    },
-                    ranking: {
-                        averageKD: null,
-                        rank: "CLICK TO RANK",
-                        class: "unranked",
-                        percentage: ""
+                connection.query('SELECT * FROM matches WHERE match_id = ?', match.matchID, async (err,rows) => {
+                    if(err) throw err;
+                  
+                    if (rows && rows.length) {
+                        let data = rows[0];
+                        let newMatch = {
+                            matchID: match.matchID,
+                            mode: match.mode,
+                            utcStartSeconds: match.utcStartSeconds,
+                            playerStats: {
+                                teamPlacement: match.playerStats.teamPlacement,
+                                kills: match.playerStats.kills,
+                                damageDone: match.playerStats.damageDone,
+                                score: match.playerStats.score
+                            },
+                            ranking: {
+                                averageKD: data.medianKD,
+                                rank: data.rank,
+                                class: data.class,
+                                percentage: data.percentage
+                            }
+                        }
+                        matches[match.matchID] = newMatch;
+                    } else {
+                        let newMatch = {
+                            matchID: match.matchID,
+                            mode: match.mode,
+                            utcStartSeconds: match.utcStartSeconds,
+                            playerStats: {
+                                teamPlacement: match.playerStats.teamPlacement,
+                                kills: match.playerStats.kills,
+                                damageDone: match.playerStats.damageDone,
+                                score: match.playerStats.score
+                            },
+                            ranking: {
+                                averageKD: null,
+                                rank: "CLICK TO RANK",
+                                class: "unranked",
+                                percentage: ""
+                            }
+                        }
+                        matches[match.matchID] = newMatch;
                     }
-                }
-                matches[match.matchID] = newMatch;
-                countOfLoaded = countOfLoaded + 1;
-                if (data.matches.length == countOfLoaded || errorLoadingMatches) {
-                    resolve();
-                }
+                    countOfLoaded = countOfLoaded + 1;
+                    if (data.matches.length == countOfLoaded || errorLoadingMatches) {
+                        resolve();
+                    }
+                });
+                
                 
             });
         });
@@ -467,6 +511,35 @@ router.get('/match/:matchID', async function(req, res, next) {
         console.log(Error);
         res.json({error: true, msg: Error});
     }
+});
+
+router.get('/famous', async function(req, res, next) {
+    connection.query('SELECT * FROM famous', async (err,rows) => {
+        if(err) throw err;
+      
+        console.log('Data received from Db:');
+        console.log(rows);
+        if (rows && rows.length) {
+            let famousPlayers = [];
+            rows.forEach(function(row) {
+                let newFamousPlayer = {
+                    name: row.name,
+                    platform: row.platform,
+                    username: row.username,
+                    picture: row.profilePicture,
+                    social: {
+                        twitch: row.twitch,
+                        facebook: row.fb,
+                        twitter: row.twitter
+                    }
+                };
+                famousPlayers.push(newFamousPlayer);
+            })
+            res.json({error: false, data: famousPlayers});
+        } else {
+            res.json({error: true, msg: "No famous players"});
+        }
+    });
 });
 
 
