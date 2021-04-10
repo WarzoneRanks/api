@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 const API = require('call-of-duty-api')();
+const rateLimit = require("express-rate-limit");
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
@@ -24,6 +25,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
+const apiLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000,
+  max: 50,
+  message: "You've sent too many requests to WZ Ranks servers in 5 miutes, please wait a few minutes before trying again.",
+  handler: function(req, res) {
+    res.json({
+      error: true,
+      msg: "You've sent too many requests to WZ Ranks servers in 5 miutes, please wait a few minutes before trying again."
+    });
+  }
+});
+app.use("/stats/", apiLimiter);
+app.use("/matches/", apiLimiter);
+
 app.use('/', indexRouter);
 app.use('/matches', matchesRouter);
 app.use('/stats', statsRouter);
@@ -34,7 +49,7 @@ app.use(function(req, res, next) {
 });
 
 try {
-  API.login(process.env.ACTI_EMAIL2, process.env.ACTI_PASS);
+  API.login(process.env.ACTI_EMAIL, process.env.ACTI_PASS);
 } catch(Error) {
   console.log(Error);
 }
