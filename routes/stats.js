@@ -429,7 +429,7 @@ router.get('/:platform/:username/matches', async function(req, res, next) {
         var loadMatches = new Promise((resolve, reject) => {
             data.matches.forEach(async function(match) {
                 matches[match.matchID] = {matchID: match.matchID};
-                connection.query('SELECT * FROM matches WHERE match_id = ?', match.matchID, async (err,rows) => {
+                connection.query('SELECT * FROM matches WHERE match_id = ? ORDER BY id DESC LIMIT 1', match.matchID, async (err,rows) => {
                     if(err) throw err;
                   
                     if (rows && rows.length) {

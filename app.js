@@ -25,19 +25,46 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
+const parseIp = (req) =>
+    (typeof req.headers['x-forwarded-for'] === 'string'
+        && req.headers['x-forwarded-for'].split(',').shift())
+    || req.connection.remoteAddress
+    || req.socket.remoteAddress
+    || req.connection.socket.remoteAddress;
+
 const apiLimiter = rateLimit({
   windowMs: 5 * 60 * 1000,
   max: 50,
-  message: "You've sent too many requests to WZ Ranks servers in 5 miutes, please wait a few minutes before trying again.",
+  message: "You've sent too many requests to WZ Ranks servers in 5 minutes, please wait a few minutes before trying again.",
   handler: function(req, res) {
     res.json({
       error: true,
-      msg: "You've sent too many requests to WZ Ranks servers in 5 miutes, please wait a few minutes before trying again."
+      msg: "You've sent too many requests to WZ Ranks servers in 5 minutes, please wait a few minutes before trying again."
     });
+  },
+  keyGenerator: function(req) {
+    let ip = parseIp(req);
+    return ip;
   }
 });
 app.use("/stats/", apiLimiter);
-app.use("/matches/", apiLimiter);
+const matchesLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000,
+  max: 75,
+  message: "You've sent too many requests to WZ Ranks servers in 5 minutes, please wait a few minutes before trying again.",
+  handler: function(req, res) {
+    res.json({
+      error: true,
+      msg: "You've sent too many requests to WZ Ranks servers in 5 minutes, please wait a few minutes before trying again."
+    });
+  },
+  keyGenerator: function(req) {
+    let ip = parseIp(req);
+    return ip;
+  }
+});
+
+app.use("/matches/", matchesLimiter);
 
 app.use('/', indexRouter);
 app.use('/matches', matchesRouter);

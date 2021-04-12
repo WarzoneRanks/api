@@ -38,7 +38,7 @@ router.get('/match/:matchID', async function(req, res, next) {
             'method': 'GET',
             'url': `https://api.tracker.gg/api/v2/warzone/standard/matches/${matchID}`,
             'headers': {
-              'Cookie': '__cfduid=d7408b042c56b054c01l919fed21e199b1617339783; X-Mapping-Server=s8; __cflb=02DiuFQAkRrzD1P1mdjW28WYn2UPf2uF9HjXpvtrRXyYG'
+              'Cookie': '__cfduid=d7408b042c56b054p01c919fed21e199b1317339783; X-Mapping-Server=s8; __cflb=02DiuFQAkRrzD1P1mdjW28WYn2UPf2uF9HjXpvtrRXyYG'
             }
           };
           request(options, function (error, response) {
@@ -206,7 +206,7 @@ router.get('/match/:matchID', async function(req, res, next) {
 
 router.get('/fullMatch/:matchID', async function(req, res, next) {
     var matchID = req.params.matchID;
-    connection.query('SELECT * FROM matches WHERE match_id = ?', matchID, async (err,rows) => {
+    connection.query('SELECT * FROM matches WHERE match_id = ? ORDER BY id DESC LIMIT 1', matchID, async (err,rows) => {
         if(err) throw err;
       
         console.log('Data received from Db:');
