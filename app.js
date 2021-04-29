@@ -11,6 +11,8 @@ require('dotenv').config();
 var indexRouter = require('./routes/index');
 var matchesRouter = require('./routes/matches');
 var statsRouter = require('./routes/stats');
+var matchesRouterDev = require('./routes/dev-matches');
+var statsRouterDev = require('./routes/dev-stats');
 
 var app = express();
 
@@ -67,8 +69,11 @@ const matchesLimiter = rateLimit({
 app.use("/matches/", matchesLimiter);
 
 app.use('/', indexRouter);
+app.use('/dev', indexRouter);
 app.use('/matches', matchesRouter);
 app.use('/stats', statsRouter);
+app.use('/dev/matches', matchesRouterDev);
+app.use('/dev/stats', statsRouterDev);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
