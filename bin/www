@@ -9,13 +9,14 @@ var debug = require('debug')('warzoneapi:server');
 var http = require('http');
 var fs = require('fs')
 var https = require('https')
+require('dotenv').config();
 /**
  * Get port from environment and store in Express.
  */
 
 var port = normalizePort(3003);
 app.set('port', port);
-var host = '31.220.63.223';
+var host = process.env.SERVEIP;
 /**
  * Create HTTP server.
  */
