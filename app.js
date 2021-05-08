@@ -50,6 +50,7 @@ const apiLimiter = rateLimit({
   }
 });
 app.use("/stats/", apiLimiter);
+app.use("/dev/stats/", apiLimiter);
 const matchesLimiter = rateLimit({
   windowMs: 5 * 60 * 1000,
   max: 75,
@@ -67,6 +68,7 @@ const matchesLimiter = rateLimit({
 });
 
 app.use("/matches/", matchesLimiter);
+app.use("/dev/matches/", matchesLimiter);
 
 app.use('/', indexRouter);
 app.use('/dev', indexRouter);

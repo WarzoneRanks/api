@@ -35,112 +35,112 @@ router.get('/:platform/:username', async function(req, res, next) {
             let kdPercentage;
             switch(true) {
                 case (kd > 3.57):
-                    kdRank = "GOD Tier";
+                    kdRank = "Legend";
                     kdClass = "legend"
                     kdPercentage = "Top 0.1%";
                     break;
                 case (kd > 2.08):
-                    kdRank = "S+ Tier";
+                    kdRank = "Master";
                     kdClass = "master"
                     kdPercentage = "Top 1%";
                     break;
                 case (kd > 1.54):
-                    kdRank = "S Tier";
+                    kdRank = "Diamond 1";
                     kdClass = "diamond"
                     kdPercentage = "Top 5%";
                     break;
                 case (kd > 1.34):
-                    kdRank = "S Tier";
+                    kdRank = "Diamond 2";
                     kdClass = "diamond"
                     kdPercentage = "Top 10%";
                     break;
                 case (kd > 1.23):
-                    kdRank = "S Tier";
+                    kdRank = "Diamond 3";
                     kdClass = "diamond"
                     kdPercentage = "Top 15%";
                     break;
                 case (kd > 1.14):
-                    kdRank = "S Tier";
+                    kdRank = "Diamond 4";
                     kdClass = "diamond"
                     kdPercentage = "Top 20%";
                     break;
                 case (kd > 1.08):
-                    kdRank = "A Tier";
+                    kdRank = "Platinum 1";
                     kdClass = "platinum"
                     kdPercentage = "Top 25%";
                     break;
                 case (kd > 1.02):
-                    kdRank = "A Tier";
+                    kdRank = "Platinum 2";
                     kdClass = "platinum"
                     kdPercentage = "Top 30%";
                     break;
                 case (kd > 0.97):
-                    kdRank = "A Tier";
+                    kdRank = "Platinum 3";
                     kdClass = "platinum"
                     kdPercentage = "Top 35%";
                     break;
                 case (kd > 0.92):
-                    kdRank = "A Tier";
+                    kdRank = "Platinum 4";
                     kdClass = "platinum"
                     kdPercentage = "Top 40%";
                     break;
                 case (kd > 0.87):
-                    kdRank = "B Tier";
+                    kdRank = "Gold 1";
                     kdClass = "gold"
                     kdPercentage = "Top 45%";
                     break;
                 case (kd > 0.83):
-                    kdRank = "B Tier";
+                    kdRank = "Gold 2";
                     kdClass = "gold"
                     kdPercentage = "Top 50%";
                     break;
                 case (kd > 0.78):
-                    kdRank = "B Tier";
+                    kdRank = "Gold 3";
                     kdClass = "gold"
                     kdPercentage = "Bottom 50%";
                     break;
                 case (kd > 0.74):
-                    kdRank = "B Tier";
+                    kdRank = "Gold 4";
                     kdClass = "gold"
                     kdPercentage = "Bottom 45%";
                     break;
                 case (kd > 0.69):
-                    kdRank = "C Tier";
+                    kdRank = "Silver 1";
                     kdClass = "silver"
                     kdPercentage = "Bottom 40%";
                     break;
                 case (kd > 0.64):
-                    kdRank = "C Tier";
+                    kdRank = "Silver 2";
                     kdClass = "silver"
                     kdPercentage = "Bottom 35%";
                     break;
                 case (kd > 0.59):
-                    kdRank = "C Tier";
+                    kdRank = "Silver 3";
                     kdClass = "silver"
                     kdPercentage = "Bottom 30%";
                     break;
                 case (kd > 0.53):
-                    kdRank = "C Tier";
+                    kdRank = "Silver 4";
                     kdClass = "silver"
                     kdPercentage = "Bottom 25%";
                     break;
                 case (kd > 0.47):
-                    kdRank = "D Tier";
+                    kdRank = "Bronze 1";
                     kdClass = "bronze"
                     kdPercentage = "Bottom 20%";
                     break;
                 case (kd > 0.38):
-                    kdRank = "D Tier";
+                    kdRank = "Bronze 2";
                     kdClass = "bronze"
                     kdPercentage = "Bottom 15%";
                     break;
                 case (kd > 0.27):
-                    kdRank = "D Tier";
+                    kdRank = "Bronze 3";
                     kdClass = "bronze"
                     kdPercentage = "Bottom 10%";
                     break;
                 default: 
-                    kdRank = "D Tier";
+                    kdRank = "Bronze 4";
                     kdClass = "bronze"
                     kdPercentage = "Bottom 5%";
                     break;
@@ -152,112 +152,112 @@ router.get('/:platform/:username', async function(req, res, next) {
             let winsPercentage;
             switch(true) {
                 case (wins > 232):
-                    winsRank  = "GOD Tier";
+                    winsRank  = "Legend";
                     winsClass = "legend"
                     winsPercentage = "Top 0.1%";
                     break;
                 case (wins > 105):
-                    winsRank  = "S+ Tier";
+                    winsRank  = "Master";
                     winsClass = "master"
                     winsPercentage = "Top 1%";
                     break;
                 case (wins > 51):
-                    winsRank  = "S Tier";
+                    winsRank  = "Diamond 1";
                     winsClass = "diamond"
                     winsPercentage = "Top 5%";
                     break;
                 case (wins > 34):
-                    winsRank  = "S Tier";
+                    winsRank  = "Diamond 2";
                     winsClass = "diamond"
                     winsPercentage = "Top 10%";
                     break;
                 case (wins > 25):
-                    winsRank  = "S Tier";
+                    winsRank  = "Diamond 3";
                     winsClass = "diamond"
                     winsPercentage = "Top 15%";
                     break;
                 case (wins > 19):
-                    winsRank  = "S Tier";
+                    winsRank  = "Diamond 4";
                     winsClass = "diamond"
                     winsPercentage = "Top 20%";
                     break;
                 case (wins > 15):
-                    winsRank  = "A Tier";
+                    winsRank  = "Platinum 1";
                     winsClass = "platinum"
                     winsPercentage = "Top 25%";
                     break;
                 case (wins > 12):
-                    winsRank  = "A Tier";
+                    winsRank  = "Platinum 2";
                     winsClass = "platinum"
                     winsPercentage = "Top 30%";
                     break;
                 case (wins > 10):
-                    winsRank  = "A Tier";
+                    winsRank  = "Platinum 3";
                     winsClass = "platinum"
                     winsPercentage = "Top 35%";
                     break;
                 case (wins > 8):
-                    winsRank  = "A Tier";
+                    winsRank  = "Platinum 4";
                     winsClass = "platinum"
                     winsPercentage = "Top 40%";
                     break;
                 case (wins > 6):
-                    winsRank  = "B Tier";
+                    winsRank  = "Gold 1";
                     winsClass = "gold"
                     winsPercentage = "Top 45%";
                     break;
                 case (wins > 5):
-                    winsRank  = "B Tier";
+                    winsRank  = "Gold 2";
                     winsClass = "gold"
                     winsPercentage = "Top 50%";
                     break;
                 case (wins > 3):
-                    winsRank  = "B Tier";
+                    winsRank  = "Gold 3";
                     winsClass = "gold"
                     winsPercentage = "Bottom 50%";
                     break;
                 case (wins > 2):
-                    winsRank  = "B Tier";
+                    winsRank  = "Gold 4";
                     winsClass = "gold"
                     winsPercentage = "Bottom 45%";
                     break;
                 case (wins > 2):
-                    winsRank  = "C Tier";
+                    winsRank  = "Silver 1";
                     winsClass = "silver"
                     winsPercentage = "Bottom 40%";
                     break;
                 case (wins > 1):
-                    winsRank  = "C Tier";
+                    winsRank  = "Silver 2";
                     winsClass = "silver"
                     winsPercentage = "Bottom 35%";
                     break;
                 case (wins > 1):
-                    winsRank  = "C Tier";
+                    winsRank  = "Silver 3";
                     winsClass = "silver"
                     winsPercentage = "Bottom 30%";
                     break;
                 case (wins > 0):
-                    winsRank  = "C Tier";
+                    winsRank  = "Silver 4";
                     winsClass = "silver"
                     winsPercentage = "Bottom 25%";
                     break;
                 case (wins > 0):
-                    winsRank  = "D Tier";
+                    winsRank  = "Bronze 1";
                     winsClass = "bronze"
                     winsPercentage = "Bottom 20%";
                     break;
                 case (wins > 0):
-                    winsRank  = "D Tier";
+                    winsRank  = "Bronze 2";
                     winsClass = "bronze"
                     winsPercentage = "Bottom 15%";
                     break;
                 case (wins > 0):
-                    winsRank  = "D Tier";
+                    winsRank  = "Bronze 3";
                     winsClass = "bronze"
                     winsPercentage = "Bottom 10%";
                     break;
                 default: 
-                    winsRank  = "D Tier";
+                    winsRank  = "Bronze 4";
                     winsClass = "bronze"
                     winsPercentage = "Bottom 5%";
                     break;
@@ -269,112 +269,112 @@ router.get('/:platform/:username', async function(req, res, next) {
             let kpgPercentage;
             switch(true) {
                 case (kpg > 8.93):
-                    kpgRank = "GOD Tier";
+                    kpgRank = "Legend";
                     kpgClass = "legend"
                     kpgPercentage = "Top 0.1%";
                     break;
                 case (kpg > 5.31):
-                    kpgRank = "S+ Tier";
+                    kpgRank = "Master";
                     kpgClass = "master"
                     kpgPercentage = "Top 1%";
                     break;
                 case (kpg > 4.02):
-                    kpgRank = "S Tier";
+                    kpgRank = "Diamond 1";
                     kpgClass = "diamond"
                     kpgPercentage = "Top 5%";
                     break;
                 case (kpg > 3.53):
-                    kpgRank = "S Tier";
+                    kpgRank = "Diamond 2";
                     kpgClass = "diamond"
                     kpgPercentage = "Top 10%";
                     break;
                 case (kpg > 3.24):
-                    kpgRank = "S Tier";
+                    kpgRank = "Diamond 3";
                     kpgClass = "diamond"
                     kpgPercentage = "Top 15%";
                     break;
                 case (kpg > 3.02):
-                    kpgRank = "S Tier";
+                    kpgRank = "Diamond 4";
                     kpgClass = "diamond"
                     kpgPercentage = "Top 20%";
                     break;
                 case (kpg > 2.84):
-                    kpgRank = "A Tier";
+                    kpgRank = "Platinum 1";
                     kpgClass = "platinum"
                     kpgPercentage = "Top 25%";
                     break;
                 case (kpg > 2.69):
-                    kpgRank = "A Tier";
+                    kpgRank = "Platinum 2";
                     kpgClass = "platinum"
                     kpgPercentage = "Top 30%";
                     break;
                 case (kpg > 2.55):
-                    kpgRank = "A Tier";
+                    kpgRank = "Platinum 3";
                     kpgClass = "platinum"
                     kpgPercentage = "Top 35%";
                     break;
                 case (kpg > 2.43):
-                    kpgRank = "A Tier";
+                    kpgRank = "Platinum 4";
                     kpgClass = "platinum"
                     kpgPercentage = "Top 40%";
                     break;
                 case (kpg > 2.30):
-                    kpgRank = "B Tier";
+                    kpgRank = "Gold 1";
                     kpgClass = "gold"
                     kpgPercentage = "Top 45%";
                     break;
                 case (kpg > 2.19):
-                    kpgRank = "B Tier";
+                    kpgRank = "Gold 2";
                     kpgClass = "gold"
                     kpgPercentage = "Top 50%";
                     break;
                 case (kpg > 2.07):
-                    kpgRank = "B Tier";
+                    kpgRank = "Gold 3";
                     kpgClass = "gold"
                     kpgPercentage = "Bottom 50%";
                     break;
                 case (kpg > 1.96):
-                    kpgRank = "B Tier";
+                    kpgRank = "Gold 4";
                     kpgClass = "gold"
                     kpgPercentage = "Bottom 45%";
                     break;
                 case (kpg > 1.84):
-                    kpgRank = "C Tier";
+                    kpgRank = "Silver 1";
                     kpgClass = "silver"
                     kpgPercentage = "Bottom 40%";
                     break;
                 case (kpg > 1.71):
-                    kpgRank = "C Tier";
+                    kpgRank = "Silver 2";
                     kpgClass = "silver"
                     kpgPercentage = "Bottom 35%";
                     break;
                 case (kpg > 1.57):
-                    kpgRank = "C Tier";
+                    kpgRank = "Silver 3";
                     kpgClass = "silver"
                     kpgPercentage = "Bottom 30%";
                     break;
                 case (kpg > 1.42):
-                    kpgRank = "C Tier";
+                    kpgRank = "Silver 4";
                     kpgClass = "silver"
                     kpgPercentage = "Bottom 25%";
                     break;
                 case (kpg > 1.24):
-                    kpgRank = "D Tier";
+                    kpgRank = "Bronze 1";
                     kpgClass = "bronze"
                     kpgPercentage = "Bottom 20%";
                     break;
                 case (kpg > 1.00):
-                    kpgRank = "D Tier";
+                    kpgRank = "Bronze 2";
                     kpgClass = "bronze"
                     kpgPercentage = "Bottom 15%";
                     break;
                 case (kpg > 0.70):
-                    kpgRank = "D Tier";
+                    kpgRank = "Bronze 3";
                     kpgClass = "bronze"
                     kpgPercentage = "Bottom 10%";
                     break;
                 default: 
-                    kpgRank = "D Tier";
+                    kpgRank = "Bronze 4";
                     kpgClass = "bronze"
                     kpgPercentage = "Bottom 5%";
                     break;
@@ -430,6 +430,14 @@ router.get('/:platform/:username', async function(req, res, next) {
                             className: "fas fa-badge-check",
                             class: "verified",
                             roleID: 3
+                        });
+                    }
+                    if (roleData.staff == 1) {
+                        roles.push({
+                            name: "Staff",
+                            className: "fa fa-badge",
+                            class: "owner",
+                            roleID: 4
                         });
                     }
                     var stats = {

@@ -233,7 +233,7 @@ router.get('/fullMatch/:matchID', async function(req, res, next) {
                 let data = await API.MWFullMatchInfowz(matchID);
                 var options = {
                     'method': 'GET',
-                    'url': `https://api.tracker.gg/api/v2/warzone/standard/matches/${matchID}`,
+                    'url': `https://app.wzstats.gg/v2/?matchId=${matchID}`,
                     'headers': {
                       'Cookie': '__cfduid=d7408b042c56e054c01c909fed21e199b1617339583; X-Mapping-Server=s8; __cflb=02DiuFQAkRrzD1P1mdjW28WYn2UPf2uF9HjXpvtrRXyYG'
                     }
@@ -255,12 +255,12 @@ router.get('/fullMatch/:matchID', async function(req, res, next) {
                             return;
                         }
                     } else {
-                        players = result.data.segments;
+                        players = result.data.players;
                     }
                     let kds = [];
                     players.forEach(async function(player) {
-                        if (player.attributes.lifeTimeStats != null) {
-                            kds.push(player.attributes.lifeTimeStats.kdRatio);
+                        if (player.playerStat != null) {
+                            kds.push(player.playerStat.lifetime.mode.br.properties.kdRatio);
                         }
                     });
                     var total=0;
@@ -270,133 +270,133 @@ router.get('/fullMatch/:matchID', async function(req, res, next) {
         
                     switch(true) {
                         case (averageKD > 3.57):
-                            kdRank = "GOD Tier";
+                            kdRank = "Legend";
                             kdClass = "legend"
                             kdPercentage = "Top 0.1%";
                             kdChart = "filled-100";
                             break;
-                        case (averageKD > 2.18):
-                            kdRank = "S+ Tier";
+                        case (averageKD > 2.08):
+                            kdRank = "Master";
                             kdClass = "master"
                             kdPercentage = "Top 1%";
                             kdChart = "filled-99";
                             break;
                         case (averageKD > 1.54):
-                            kdRank = "S Tier";
+                            kdRank = "Diamond 1";
                             kdClass = "diamond"
                             kdPercentage = "Top 5%";
                             kdChart = "filled-95";
                             break;
                         case (averageKD > 1.34):
-                            kdRank = "S Tier";
+                            kdRank = "Diamond 2";
                             kdClass = "diamond"
                             kdPercentage = "Top 10%";
                             kdChart = "filled-90";
                             break;
                         case (averageKD > 1.23):
-                            kdRank = "S Tier";
+                            kdRank = "Diamond 3";
                             kdClass = "diamond"
                             kdPercentage = "Top 15%";
                             kdChart = "filled-85";
                             break;
                         case (averageKD > 1.14):
-                            kdRank = "S Tier";
+                            kdRank = "Diamond 4";
                             kdClass = "diamond"
                             kdPercentage = "Top 20%";
                             kdChart = "filled-80";
                             break;
                         case (averageKD > 1.08):
-                            kdRank = "A Tier";
+                            kdRank = "Platinum 1";
                             kdClass = "platinum"
                             kdPercentage = "Top 25%";
                             kdChart = "filled-75";
                             break;
                         case (averageKD > 1.02):
-                            kdRank = "A Tier";
+                            kdRank = "Platinum 2";
                             kdClass = "platinum"
                             kdPercentage = "Top 30%";
                             kdChart = "filled-70";
                             break;
                         case (averageKD > 0.97):
-                            kdRank = "A Tier";
+                            kdRank = "Platinum 3";
                             kdClass = "platinum"
                             kdPercentage = "Top 35%";
                             kdChart = "filled-65";
                             break;
                         case (averageKD > 0.92):
-                            kdRank = "A Tier";
+                            kdRank = "Platinum 4";
                             kdClass = "platinum"
                             kdPercentage = "Top 40%";
                             kdChart = "filled-60";
                             break;
                         case (averageKD > 0.87):
-                            kdRank = "B Tier";
+                            kdRank = "Gold 1";
                             kdClass = "gold"
                             kdPercentage = "Top 45%";
                             kdChart = "filled-55";
                             break;
                         case (averageKD > 0.83):
-                            kdRank = "B Tier";
+                            kdRank = "Gold 2";
                             kdClass = "gold"
                             kdPercentage = "Top 50%";
                             kdChart = "filled-50";
                             break;
                         case (averageKD > 0.78):
-                            kdRank = "B Tier";
+                            kdRank = "Gold 3";
                             kdClass = "gold"
                             kdPercentage = "Bottom 50%";
                             kdChart = "filled-50";
                             break;
                         case (averageKD > 0.74):
-                            kdRank = "B Tier";
+                            kdRank = "Gold 4";
                             kdClass = "gold"
                             kdPercentage = "Bottom 45%";
                             kdChart = "filled-45";
                             break;
                         case (averageKD > 0.69):
-                            kdRank = "C Tier";
+                            kdRank = "Silver 1";
                             kdClass = "silver"
                             kdPercentage = "Bottom 40%";
                             kdChart = "filled-40";
                             break;
                         case (averageKD > 0.64):
-                            kdRank = "C Tier";
+                            kdRank = "Silver 2";
                             kdClass = "silver"
                             kdPercentage = "Bottom 35%";
                             kdChart = "filled-35";
                             break;
                         case (averageKD > 0.59):
-                            kdRank = "C Tier";
+                            kdRank = "Silver 3";
                             kdClass = "silver"
                             kdPercentage = "Bottom 30%";
                             kdChart = "filled-30";
                             break;
                         case (averageKD > 0.53):
-                            kdRank = "C Tier";
+                            kdRank = "Silver 4";
                             kdClass = "silver"
                             kdPercentage = "Bottom 25%";
                             kdChart = "filled-25";
                             break;
                         case (averageKD > 0.47):
-                            kdRank = "D Tier";
+                            kdRank = "Bronze 1";
                             kdClass = "bronze"
                             kdPercentage = "Bottom 20%";
                             kdChart = "filled-20";
                             break;
                         case (averageKD > 0.38):
-                            kdRank = "D Tier";
+                            kdRank = "Bronze 2";
                             kdClass = "bronze"
                             kdPercentage = "Bottom 15%";
                             kdChart = "filled-15";
                             break;
                         case (averageKD > 0.27):
-                            kdRank = "D Tier";
+                            kdRank = "Bronze 3";
                             kdClass = "bronze"
                             kdPercentage = "Bottom 10%";
                             kdChart = "filled-10";
                             break;
                         default: 
-                            kdRank = "D Tier";
+                            kdRank = "Bronze 4";
                             kdClass = "bronze"
                             kdPercentage = "Bottom 5%";
                             kdChart = "filled-5";
@@ -407,62 +407,66 @@ router.get('/fullMatch/:matchID', async function(req, res, next) {
                     let newPlayers = [];
 
                     players.forEach(function(p) {
-                        if (p.attributes.lifeTimeStats != null) {
+                        if (p.playerStat != null) {
+                            let gameKD = p.playerMatchStat.playerStats.kills / p.playerMatchStat.playerStats.deaths;
                             let newPlayer = {
                                 attributes: {
                                     lifeTimeStats: {
-                                        kdRatio: p.attributes.lifeTimeStats.kdRatio
+                                        kdRatio: p.playerStat.lifetime.mode.br.properties.kdRatio.toFixed(2)
                                     }
                                 },
                                 metadata: {
                                     placement: {
-                                        value: p.metadata.placement.value
+                                        value: p.playerMatchStat.playerStats.teamPlacement
                                     },
-                                    platformUserHandle: p.metadata.platformUserHandle
+                                    platformUserHandle: p.playerMatchStat.player.username
                                 },
                                 stats: {
                                     headshots: {
-                                        value: p.stats.headshots.value
+                                        value: p.playerMatchStat.playerStats.headshots
                                     },
                                     kills: {
-                                        value: p.stats.kills.value
+                                        value: p.playerMatchStat.playerStats.kills
                                     },
                                     damageDone: {
-                                        value: p.stats.damageDone.value
+                                        value: p.playerMatchStat.playerStats.damageDone
                                     },
                                     kdRatio: {
-                                        displayValue: p.stats.kdRatio.displayValue
+                                        displayValue: gameKD.toFixed(2)
                                     },
                                     deaths: {
-                                        value: p.stats.deaths.value
+                                        value: p.playerMatchStat.playerStats.deaths
                                     }
                                 }
                             };
                             newPlayers.push(newPlayer);
                         } else {
+                            let gameKD = p.playerMatchStat.playerStats.kills / p.playerMatchStat.playerStats.deaths;
                             let newPlayer = {
+                                attributes: {
+                                  lifeTimeStats: null  
+                                },
                                 metadata: {
                                     placement: {
-                                        value: p.metadata.placement.value
+                                        value: p.playerMatchStat.playerStats.teamPlacement
                                     },
-                                    platformUserHandle: p.metadata.platformUserHandle
+                                    platformUserHandle: p.playerMatchStat.player.username
                                 },
-                                attributes: {},
                                 stats: {
                                     headshots: {
-                                        value: p.stats.headshots.value
+                                        value: p.playerMatchStat.playerStats.headshots
                                     },
                                     kills: {
-                                        value: p.stats.kills.value
+                                        value: p.playerMatchStat.playerStats.kills
                                     },
                                     damageDone: {
-                                        value: p.stats.damageDone.value
+                                        value: p.playerMatchStat.playerStats.damageDone
                                     },
                                     kdRatio: {
-                                        displayValue: p.stats.kdRatio.displayValue
+                                        displayValue: gameKD.toFixed(2)
                                     },
                                     deaths: {
-                                        value: p.stats.deaths.value
+                                        value: p.playerMatchStat.playerStats.deaths
                                     }
                                 }
                             };
@@ -472,8 +476,8 @@ router.get('/fullMatch/:matchID', async function(req, res, next) {
         
                     let newResponse = {
                         allPlayers: newPlayers,
-                        mode: result.data.attributes.modeId,
-                        startTime: result.data.metadata.timestamp,
+                        mode: result.matchStatData.mode,
+                        startTime: result.data.startedAt * 1000,
                         ranking: {
                             averageKD: averageKD,
                             averageKD_avg: averageKD_avg,
@@ -487,8 +491,8 @@ router.get('/fullMatch/:matchID', async function(req, res, next) {
                     };
                     let newDBEntry = {
                         match_id: matchID,
-                        mode: result.data.attributes.modeId,
-                        startTime: result.data.metadata.timestamp,
+                        mode: result.matchStatData.mode,
+                        startTime: result.data.startedAt * 1000,
                         allPlayers: JSON.stringify(newPlayers),
                         averageKD: averageKD_avg,
                         medianKD: averageKD,
